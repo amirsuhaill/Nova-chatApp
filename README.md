@@ -36,6 +36,9 @@ To get the app up and running on your local machine:
    npm run build
    ```
 
+## live link : 
+https://nova-chat-app.vercel.app/
+
 ## Overview of Project Structure
 
 - `src/components/`: Reusable interface elements like the `Starfield` background, `Sidebar`, `NameModal`, and Chat `Message` components.
