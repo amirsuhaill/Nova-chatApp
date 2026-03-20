@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function NameModal({ onConfirm }) {
+export default function NameModal({ onConfirm, onSkip }) {
   const [value, setValue] = useState('');
 
   function handleSubmit(e) {
@@ -43,6 +43,13 @@ export default function NameModal({ onConfirm }) {
             className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold text-sm hover:from-violet-500 hover:to-indigo-500 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-150 shadow-lg shadow-violet-900/40 cursor-pointer"
           >
             Let's Explore →
+          </button>
+          <button
+            type="button"
+            onClick={onSkip}
+            className="w-full py-2.5 rounded-xl text-gray-500 text-sm hover:text-gray-300 transition-colors cursor-pointer"
+          >
+            Skip for now
           </button>
         </form>
       </div>

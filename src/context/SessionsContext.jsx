@@ -33,12 +33,16 @@ export function SessionsProvider({ children }) {
     setSessions(prev => prev.filter(s => s.id !== id));
   }
 
+  function clearSessions() {
+    setSessions([]);
+  }
+
   function getSession(id) {
     return sessions.find(s => s.id === id) ?? null;
   }
 
   return (
-    <SessionsContext.Provider value={{ sessions, addSession, updateSession, deleteSession, getSession }}>
+    <SessionsContext.Provider value={{ sessions, addSession, updateSession, deleteSession, clearSessions, getSession }}>
       {children}
     </SessionsContext.Provider>
   );

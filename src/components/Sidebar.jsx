@@ -5,7 +5,8 @@ import { useUser } from '../context/UserContext';
 
 export default function Sidebar({ onNew }) {
   const { sessions, deleteSession } = useSessions();
-  const { userName } = useUser();
+  const { userName, logout } = useUser();
+  const { clearSessions } = useSessions();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
@@ -119,10 +120,18 @@ export default function Sidebar({ onNew }) {
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-sm font-bold text-white flex-shrink-0 shadow-md shadow-violet-900/40">
                 {userName.charAt(0).toUpperCase()}
               </div>
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <p className="text-gray-300 text-xs font-medium truncate">{userName}</p>
                 <p className="text-gray-600 text-xs">Explorer</p>
               </div>
+              <button
+                onClick={() => { clearSessions(); logout(); navigate('/'); setOpen(false); }}
+                className="text-gray-600 hover:text-red-400 transition-colors text-xs cursor-pointer flex-shrink-0"
+                title="Logout"
+                aria-label="Logout"
+              >
+                ⏻
+              </button>
             </div>
           ) : (
             <p className="text-gray-700 text-xs text-center">Local knowledge base · No APIs</p>

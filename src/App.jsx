@@ -29,6 +29,13 @@ export default function App() {
     }
   }
 
+  function handleNameSkip() {
+    setUserName('User');
+    setShowModal(false);
+    startNewChat(pendingQuestion);
+    setPendingQuestion(null);
+  }
+
   function handleNameConfirm(name) {
     setUserName(name);
     setShowModal(false);
@@ -78,7 +85,7 @@ export default function App() {
         </div>
       </div>
 
-      {showModal && <NameModal onConfirm={handleNameConfirm} />}
+      {showModal && <NameModal onConfirm={handleNameConfirm} onSkip={handleNameSkip} />}
     </div>
   );
 }
