@@ -7,10 +7,12 @@ import ChatPage from './pages/ChatPage';
 import NameModal from './components/NameModal';
 import { useSessions } from './context/SessionsContext';
 import { useUser } from './context/UserContext';
+import { useTheme } from './context/ThemeContext';
 
 export default function App() {
   const { addSession } = useSessions();
   const { userName, setUserName } = useUser();
+  const { dark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [pendingQuestion, setPendingQuestion] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -44,18 +46,18 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white relative flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white relative flex flex-col transition-colors duration-300">
       <Starfield />
 
       {/* Nebula gradients */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-900/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-900/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-0 w-64 h-64 bg-purple-900/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-200/40 dark:bg-violet-900/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-200/40 dark:bg-indigo-900/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-0 w-64 h-64 bg-purple-200/30 dark:bg-purple-900/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 flex h-screen overflow-hidden">
-        <Sidebar onNew={() => requestChat()} />
+        <Sidebar onNew={() => requestChat()} onToggleTheme={toggleTheme} dark={dark} />
 
         <div className="flex flex-col flex-1 min-w-0">
           <Routes>
@@ -63,15 +65,25 @@ export default function App() {
               path="/"
               element={
                 <div className="flex flex-col flex-1 overflow-auto h-full">
-                  <header className="flex items-center justify-between px-4 py-4 border-b border-violet-900/20 flex-shrink-0">
+                  <header className="flex items-center justify-between px-4 py-4 border-b border-violet-200 dark:border-violet-900/20 flex-shrink-0">
                     <div className="flex items-center gap-2">
                       <span className="text-xl">🌌</span>
-                      <span className="font-bold text-violet-300 tracking-wide">NOVA</span>
+                      <span className="font-bold text-violet-600 dark:text-violet-300 tracking-wide">NOVA</span>
                     </div>
-                    <span className="text-gray-500 text-xs hidden sm:block">Astronomy & Space Exploration AI</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-gray-400 dark:text-gray-500 text-xs hidden sm:block">Astronomy & Space Exploration AI</span>
+                      <button
+                        onClick={toggleTheme}
+                        className="text-lg cursor-pointer hover:scale-110 transition-transform"
+                        aria-label="Toggle theme"
+                        title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+                      >
+                        {dark ? '☀️' : '🌙'}
+                      </button>
+                    </div>
                   </header>
                   <Hero onStart={() => requestChat()} onChipClick={q => requestChat(q)} />
-                  <footer className="text-center py-4 text-gray-700 text-xs flex-shrink-0">
+                  <footer className="text-center py-4 text-gray-400 dark:text-gray-700 text-xs flex-shrink-0">
                     Powered by a local knowledge base · No external APIs
                   </footer>
                 </div>
@@ -79,7 +91,7 @@ export default function App() {
             />
             <Route
               path="/chat/:id"
-              element={<ChatPage onNew={() => requestChat()} />}
+              element={<ChatPage onNew={() => requestChat()} onToggleTheme={toggleTheme} dark={dark} />}
             />
           </Routes>
         </div>

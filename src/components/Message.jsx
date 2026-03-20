@@ -20,7 +20,7 @@ export default function Message({ msg }) {
         className={`max-w-[75%] px-4 py-3 text-sm leading-relaxed ${
           isUser
             ? 'rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-600 to-indigo-700 text-white shadow-lg shadow-violet-900/30'
-            : 'rounded-2xl rounded-bl-sm bg-gray-900/80 border border-violet-900/40 text-gray-200'
+            : 'rounded-2xl rounded-bl-sm bg-gray-100 dark:bg-gray-900/80 border border-violet-200 dark:border-violet-900/40 text-gray-800 dark:text-gray-200'
         }`}
       >
         {msg.text}
