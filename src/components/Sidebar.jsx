@@ -148,6 +148,9 @@ export default function Sidebar({ onNew }) {
             <p className="text-gray-400 dark:text-gray-700 text-xs text-center">Local knowledge base · No APIs</p>
           )}
         </div>
+        <div className="pb-2 text-center text-xs text-gray-400 dark:text-gray-600 flex-shrink-0">
+          v1.0.0
+        </div>
       </aside>
     </>
   );
